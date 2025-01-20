@@ -34,7 +34,7 @@ class LogicalExceptionHandler implements ExceptionHandlerInterface, FormatRespon
         $this->formatResponseInterface = $formatResponseInterface;
     }
 
-    private function handleExceptionE(\Throwable $throwable): Response
+    public function handleExceptionE(\Throwable $throwable): Response
     {
         return $this->formatResponseInterface->render(
             [
@@ -45,7 +45,7 @@ class LogicalExceptionHandler implements ExceptionHandlerInterface, FormatRespon
         );
     }
 
-    private function handleExceptionA(\Throwable $throwable): Response
+    public function handleExceptionA(\Throwable $throwable): Response
     {
         return $this->formatResponseInterface->render(
             [
@@ -56,7 +56,7 @@ class LogicalExceptionHandler implements ExceptionHandlerInterface, FormatRespon
         );
     }
 
-    private function handleExceptionEB(\Throwable $throwable): Response
+    public function handleExceptionEB(\Throwable $throwable): Response
     {
         return $this->formatResponseInterface->render(
             [
@@ -67,7 +67,7 @@ class LogicalExceptionHandler implements ExceptionHandlerInterface, FormatRespon
         );
     }
 
-    private function handleExceptionED(\Throwable $throwable): Response
+    public function handleExceptionED(\Throwable $throwable): Response
     {
         return $this->formatResponseInterface->render(
             [
