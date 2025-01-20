@@ -33,4 +33,48 @@ class LogicalExceptionHandler implements ExceptionHandlerInterface, FormatRespon
     {
         $this->formatResponseInterface = $formatResponseInterface;
     }
+
+    private function handleExceptionE(\Throwable $throwable): Response
+    {
+        return $this->formatResponseInterface->render(
+            [
+                'message' => $throwable->getMessage(),
+                'http_message' => 'Logical Exception',
+                'code' => Response::HTTP_INTERNAL_SERVER_ERROR
+            ]
+        );
+    }
+
+    private function handleExceptionA(\Throwable $throwable): Response
+    {
+        return $this->formatResponseInterface->render(
+            [
+                'message' => $throwable->getMessage(),
+                'http_message' => 'Logical Exception',
+                'code' => Response::HTTP_INTERNAL_SERVER_ERROR
+            ]
+        );
+    }
+
+    private function handleExceptionEB(\Throwable $throwable): Response
+    {
+        return $this->formatResponseInterface->render(
+            [
+                'message' => $throwable->getMessage(),
+                'http_message' => 'Logical Exception',
+                'code' => Response::HTTP_INTERNAL_SERVER_ERROR
+            ]
+        );
+    }
+
+    private function handleExceptionED(\Throwable $throwable): Response
+    {
+        return $this->formatResponseInterface->render(
+            [
+                'message' => $throwable->getMessage(),
+                'http_message' => 'Logical Exception',
+                'code' => Response::HTTP_INTERNAL_SERVER_ERROR
+            ]
+        );
+    }
 }
