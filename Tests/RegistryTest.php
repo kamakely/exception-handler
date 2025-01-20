@@ -60,17 +60,17 @@ class RegistryTest extends TestCase
 
     public function testNoLogicalHandler(): void
     {
-        $registry = new ExceptionRegistry([]);
-        $registry->setFormatManager(new FormatResponseManager());
-        $handler = $registry->getExceptionHandler(new \Exception(), $this->request);
+        $registryException = new ExceptionRegistry([]);
+        $registryException->setFormatManager(new FormatResponseManager());
+        $handler = $registryException->getExceptionHandler(new \Exception(), $this->request);
         $this->assertInstanceOf(LogicalExceptionHandler::class, $handler);
     }
 
     public function testResponse(): void
     {
-        $registry = new ExceptionRegistry([]);
-        $registry->setFormatManager(new FormatResponseManager());
-        $handler = $registry->getExceptionHandler(new \Exception(), $this->request);
+        $registryException = new ExceptionRegistry([]);
+        $registryException->setFormatManager(new FormatResponseManager());
+        $handler = $registryException->getExceptionHandler(new \Exception(), $this->request);
         $response = $handler->handleException(new \Exception());
         $this->assertInstanceOf(Response::class, $response);
     }
