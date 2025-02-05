@@ -54,6 +54,34 @@ pipeline{
         // }
         // ###################### END OWASP DEPENDENCY CHECK #########################
 
+        stage("Test"){
+            steps {
+                sh "docker-compose -f compose.yaml up -d --build --force-recreate --remove-orphans"
+                sh "docker-compose -f compose.yaml ps"
+                sh "docker exec -i ${env.APP_SERVICE_NAME} php bin/phpunit --log-junit build/test-results/junit.xml || true"
+            }
+
+            post {
+                always {
+                    sh "docker cp ${env.APP_SERVICE_NAME}:/var/www/html/build build"
+                    junit(testResults: 'build/test-results/**/*.xml', allowEmptyResults: true)
+                    archiveArtifacts artifacts: 'build/test-results/**/*.xml', fingerprint: true
+                    sh "docker-compose -f compose.yaml down --remove-orphans -v"
+
+                    script {
+                        echo "------------- Stage ${env.STAGE_NAME} has been marked as ${currentBuild.result}  ------------"
+                    }
+
+                }
+                unstable {
+                    script {
+                        echo "Some tests failed in the previous stage, but the pipeline continues to run"
+                    }
+                }
+            }
+        }
+
+
         stage('Review Sonar') {
             steps {
                 withSonarQubeEnv([installationName: 'sonar-devops', envOnly: true]) {

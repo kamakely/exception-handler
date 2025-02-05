@@ -1,0 +1,9 @@
+<phpunit bootstrap="vendor/autoload.php">
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">Exception/</directory>
+            <directory suffix=".php">FormatResponse/</directory>
+            <directory suffix=".php">Handler/</directory>
+        </include>
+    </coverage>
+</phpunit>
