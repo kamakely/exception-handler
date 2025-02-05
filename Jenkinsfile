@@ -58,7 +58,7 @@ pipeline{
             steps {
                 sh "docker-compose -f compose.yaml up -d --build --force-recreate --remove-orphans"
                 sh "docker-compose -f compose.yaml ps"
-                sh "docker exec -i ${env.APP_SERVICE_NAME} /var/www/html/vendor/bin/phpunit --log-junit build/test-results/junit.xml || true"
+                sh "docker exec -i ${env.APP_SERVICE_NAME} /var/www/html/vendor/bin/phpunit Tests --log-junit build/test-results/junit.xml || true"
             }
 
             post {
