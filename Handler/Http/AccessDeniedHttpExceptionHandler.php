@@ -2,10 +2,9 @@
 
 namespace Tounaf\Exception\Handler\Http;
 
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Tounaf\Exception\Exception\ExceptionHandlerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Tounaf\Exception\FormatResponse\FormatResponseCheckerInterface;
 use Tounaf\Exception\FormatResponse\FormatResponseInterface;
 
@@ -28,7 +27,7 @@ class AccessDeniedHttpExceptionHandler implements ExceptionHandlerInterface, For
 
     public function supportsException(\Throwable $throwable): bool
     {
-        return $throwable instanceof AccessDeniedHttpException;
+        return $throwable instanceof AccessDeniedException;
     }
 
     public function setFormat(FormatResponseInterface $formatResponseInterface): void

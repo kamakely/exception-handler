@@ -3,6 +3,7 @@
 namespace Tounaf\Exception\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Tounaf\Exception\Exception\ExceptionHandlerInterface;
 use Tounaf\Exception\Exception\ExceptionRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -85,6 +86,19 @@ class RegistryTest extends TestCase
         $request->setRequestFormat('json');
         $handler = $this->registry->getExceptionHandler(new \Exception(), $this->request);
         $response = $handler->handleException(new \Exception());
+        $this->assertInstanceOf(JsonResponse::class, $response);
+    }
+
+    public function testAccessDenied(): void
+    {
+
+        /**
+         * @var Request $request
+         */
+        $request = $this->request;
+        $request->setRequestFormat('json');
+        $handler = $this->registry->getExceptionHandler(new AccessDeniedException(__DIR__ . "/" . __FILE__), $this->request);
+        $response = $handler->handleException(new AccessDeniedException(__DIR__ . "/" . __FILE__));
         $this->assertInstanceOf(JsonResponse::class, $response);
     }
 

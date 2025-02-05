@@ -58,7 +58,7 @@ pipeline{
             steps {
                 sh "docker-compose -f compose.yaml up -d --build --force-recreate --remove-orphans"
                 sh "docker-compose -f compose.yaml ps"
-                sh "docker exec -i ${env.APP_SERVICE_NAME} /var/www/html/vendor/bin/phpunit Tests --log-junit build/test-results/junit.xml || true"
+                sh "docker exec -i ${env.APP_SERVICE_NAME} /var/www/html/vendor/bin/phpunit Tests --log-junit build/test-results/junit.xml --coverage-clover build/test-results/coverage.xml || true"
             }
 
             post {
@@ -88,7 +88,8 @@ pipeline{
                     script {
                         def branchName = "${GIT_BRANCH.split('/')[-1].toUpperCase()}"
                         def scannerHome = tool 'Sonar_Scanner'
-                        sh "${scannerHome}/bin/sonar-scanner -X -Dsonar.mode=incremental -Dsonar.qualitygate.wait=true -Dsonar.projectKey=${APP_SERVICE_NAME} -Dsonar.projectVersion=${RELEASE_VERSION} -Dsonar.sources=. || true"
+                        sh "ls -ahl"
+                        sh "${scannerHome}/bin/sonar-scanner -X -Dsonar.mode=incremental -Dsonar.php.coverage.reportPaths=build/test-results/coverage.xml -Dsonar.qualitygate.wait=true -Dsonar.projectKey=${APP_SERVICE_NAME} -Dsonar.projectVersion=${RELEASE_VERSION} -Dsonar.sources=. || true"
                     }
                     
                 }
