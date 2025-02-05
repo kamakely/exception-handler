@@ -1,3 +1,4 @@
 services:
   php:
     build: .
+    container_name: php-exception-handler
