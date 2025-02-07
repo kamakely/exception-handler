@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Tounaf\\Exception\\": ""
+            "Tounaf\\Exception\\": "src/"
         }
     },
     "autoload-dev": {
