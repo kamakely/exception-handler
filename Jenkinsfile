@@ -91,7 +91,7 @@ pipeline{
                         def scannerHome = tool 'Sonar_Scanner'
                         sh "ls -ahl"
                         sh "cat coverage.xml"
-                        sh "${scannerHome}/bin/sonar-scanner -X -Dsonar.mode=incremental -Dsonar.php.coverage.reportPaths=coverage.xml -Dsonar.qualitygate.wait=true -Dsonar.projectKey=${APP_SERVICE_NAME} -Dsonar.projectVersion=${RELEASE_VERSION} -Dsonar.sources=. || true"
+                        sh "${scannerHome}/bin/sonar-scanner -X -Dsonar.mode=incremental -Dsonar.php.tests.reportPath=build/test-results/junit.xml -Dsonar.php.coverage.reportPaths=coverage.xml -Dsonar.qualitygate.wait=true -Dsonar.projectKey=${APP_SERVICE_NAME} -Dsonar.projectVersion=${RELEASE_VERSION} -Dsonar.sources=. || true"
                     }
                     
                 }
