@@ -58,7 +58,6 @@ pipeline{
             steps {
                 sh "echo '================='"
                 sh "echo ${env.GIT_BRANCH == 'origin/features/feat-jenkins'}"
-                sh "echo '================='"
             }
         }
 
