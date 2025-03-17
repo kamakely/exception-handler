@@ -99,7 +99,7 @@ pipeline{
         stage('Review Sonar') {
             when {
                 expression {
-                    return env.GIT_BRANCH ==~ /master|trunk/
+                    return env.GIT_BRANCH?.trim() == 'origin/master' || env.GIT_BRANCH?.trim() == 'master'
                 }
             }
             steps {
