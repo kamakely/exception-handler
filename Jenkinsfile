@@ -65,7 +65,7 @@ pipeline{
         stage("Test"){
             when {
                 expression {
-                    return env.GIT_BRANCH?.trim() == 'master'
+                    return env.GIT_BRANCH?.trim() == 'origin/features/feat-jenkins'
                 }
             }
             steps {
@@ -99,7 +99,7 @@ pipeline{
         stage('Review Sonar') {
             when {
                 expression {
-                    return env.GIT_BRANCH?.trim() == 'origin/master' || env.GIT_BRANCH?.trim() == 'master'
+                    return env.GIT_BRANCH?.trim() == 'origin/master' || env.GIT_BRANCH?.trim() ==~ /^releases\/release-.*/
                 }
             }
             steps {
