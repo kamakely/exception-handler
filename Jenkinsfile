@@ -57,15 +57,15 @@ pipeline{
         stage('Branch Name') {
             steps {
                 sh "echo '================='"
-                sh "echo ${env.BRANCH_NAME}"
-                sh "echo ${env.GIT_BRANCH}"
+                sh "echo ${env.GIT_BRANCH == 'origin/features/feat-jenkins'}"
+                sh "echo '================='"
             }
         }
 
         stage("Test"){
             when {
                 expression {
-                    return BRANCH_NAME ==~ /features\/feat-jenkins/
+                    return env.GIT_BRANCH == 'origin/features/feat-jenkins'
                 }
             }
             steps {
@@ -99,7 +99,7 @@ pipeline{
         stage('Review Sonar') {
             when {
                 expression {
-                    return BRANCH_NAME ==~ /master|trunk/
+                    return env.GIT_BRANCH ==~ /master|trunk/
                 }
             }
             steps {
