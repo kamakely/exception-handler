@@ -65,7 +65,7 @@ pipeline{
         stage("Test"){
             when {
                 expression {
-                    return env.GIT_BRANCH?.trim() == 'master'
+                    return env.GIT_BRANCH?.trim() == 'origin/master'
                 }
             }
             steps {
