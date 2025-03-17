@@ -53,8 +53,19 @@ pipeline{
         //     }
         // }
         // ###################### END OWASP DEPENDENCY CHECK #########################
+        
+        stage('Branch Name') {
+            steps {
+                sh "echo ${BRANCH_NAME}"
+            }
+        }
 
         stage("Test"){
+            when {
+                expression {
+                    return BRANCH_NAME ==~ /features\/feat-jenkins/
+                }
+            }
             steps {
                 sh "docker-compose -f compose.yaml up -d --build --force-recreate --remove-orphans"
                 sh "docker-compose -f compose.yaml ps"
@@ -84,6 +95,11 @@ pipeline{
 
 
         stage('Review Sonar') {
+            when {
+                expression {
+                    return BRANCH_NAME ==~ /master|trunk/
+                }
+            }
             steps {
                 withSonarQubeEnv([installationName: 'sonar-devops', envOnly: true]) {
                     script {
