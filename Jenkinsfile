@@ -56,8 +56,9 @@ pipeline{
         
         stage('Branch Name') {
             steps {
-                sh "echo '================'"
-                sh "echo ${BRANCH_NAME}"
+                sh "echo '================='"
+                sh "echo ${env.BRANCH_NAME}"
+                sh "echo ${env.GIT_BRANCH}"
             }
         }
 
