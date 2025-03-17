@@ -56,6 +56,7 @@ pipeline{
         
         stage('Branch Name') {
             steps {
+                sh "echo '================'"
                 sh "echo ${BRANCH_NAME}"
             }
         }
