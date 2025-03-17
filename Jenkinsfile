@@ -65,7 +65,7 @@ pipeline{
         stage("Test"){
             when {
                 expression {
-                    return env.GIT_BRANCH == 'origin/features/feat-jenkins'
+                    return env.GIT_BRANCH?.trim() == 'master'
                 }
             }
             steps {
