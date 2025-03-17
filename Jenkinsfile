@@ -64,7 +64,7 @@ pipeline{
         stage("Test"){
             when {
                 expression {
-                    return env.GIT_BRANCH?.trim() == 'origin/features/feat-jenkins'
+                    return env.GIT_BRANCH?.trim() == 'origin/features/feat-jenkins' || env.GIT_BRANCH?.trim() ==~ /^releases\/release-.*/
                 }
             }
             steps {
